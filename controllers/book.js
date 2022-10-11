@@ -13,6 +13,7 @@ async function findBookAllBook(req, res) {
   );
   const data = await response.json();
   console.log(data);
+  res.send(data);
 }
 
 export { getAllBook, findBookAllBook };

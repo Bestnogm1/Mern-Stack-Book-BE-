@@ -6,8 +6,10 @@ const router = Router();
 
 /*---------- Public Routes ----------*/
 
-router.get("/allBooks", bookCtrl.findBookAllBook);
+router.post("/getAllSearchedBook", bookCtrl.getAllSearchedBook);
+router.post("/getABookByID", bookCtrl.getABookByID);
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken);
+router.post("/addBookToCollection", checkAuth, bookCtrl.addBookToCollection);
 
 export { router };

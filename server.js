@@ -22,7 +22,10 @@ app.use("/api/books", booksRouter);
 app.use(function (req, res, next) {
   res.status(404).json({ err: "Not found" });
 });
-
+app.get("/testing", (req, res, next) => {
+  console.log("hello");
+  // res.status(200).json({ te: "wow" });
+});
 app.use(function (err, req, res, next) {
   res.status(err.status || 500).json({ err: err.message });
 });

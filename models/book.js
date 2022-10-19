@@ -1,17 +1,15 @@
 import mongoose from "mongoose";
-
-const bookSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const bookSchema = new Schema(
   {
-    title: String,
-    authors: [String],
     title: String,
     authors: [String],
     bookId: String,
     cover: String,
-    publishDate: String,
-    rating: Number,
+    publishedDate: String,
     description: String,
     googleURL: String,
+    ownedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
   },
   {
     timestamps: true,

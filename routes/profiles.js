@@ -10,4 +10,5 @@ const router = Router();
 router.use(decodeUserFromToken);
 router.get("/", checkAuth, profilesCtrl.index);
 router.post("/show", checkAuth, profilesCtrl.show);
+router.delete("/deleteBook/:id", checkAuth, profilesCtrl.deleteBook);
 export { router };

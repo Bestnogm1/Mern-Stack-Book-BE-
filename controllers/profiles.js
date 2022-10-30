@@ -1,3 +1,4 @@
+import { Books } from "../models/book.js";
 import { Profile } from "../models/profile.js";
 
 function index(req, res) {
@@ -21,4 +22,17 @@ function show(req, res) {
       res.status(500).json(err);
     });
 }
-export { index, show };
+
+function deleteBook(req, res) {
+  const profilesId = req.params.id;
+  let { booksId } = req.body;
+  Books.findById(booksId).then((book) => {
+    Books.findByIdAndDelete(booksId).then(() => {
+      Profile.findByIdAndUpdate(profilesId).then((profile) => {
+        profile.bookshelf.remove({ _id: book._id });
+        profile.save().then(() => res.send(200));
+      });
+    });
+  });
+}
+export { index, show, deleteBook };

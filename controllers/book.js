@@ -22,7 +22,9 @@ async function addBookToCollection(req, res) {
   const googleURL = bookData.selfLink;
   const authors = bookData.authors ? bookData.authors : "No author available";
   const description = bookData.description;
-  const cover = bookData.imageLinks.thumbnail;
+  const cover = bookData.imageLinks
+    ? bookData.imageLinks.thumbnail
+    : `https://via.placeholder.com/200x250.png?text=No+ImageAvailbe`;
   const publishedDate = bookData.publishedDate;
   const title = bookData.title;
 
@@ -54,6 +56,18 @@ async function getABookByID(req, res) {
     `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${process.env.API_KEY}`
   );
   let bookData = await response.json();
+
   res.send(bookData.volumeInfo);
 }
-export { getAllSearchedBook, addBookToCollection, getABookByID };
+
+function getAllBooks(req, res) {
+  Books.find({})
+    .populate("ownedBy")
+    .then((books) => {
+      res.status(200).json(books);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+export { getAllSearchedBook, addBookToCollection, getABookByID, getAllBooks };

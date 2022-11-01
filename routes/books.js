@@ -11,5 +11,6 @@ router.post("/getABookByID", bookCtrl.getABookByID);
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken);
 router.post("/addBookToCollection", checkAuth, bookCtrl.addBookToCollection);
+router.get("/getAllBooks", checkAuth, bookCtrl.getAllBooks);
 
 export { router };

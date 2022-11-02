@@ -4,9 +4,8 @@ import { Profile } from "../models/profile.js";
 
 async function getAllSearchedBook(req, res) {
   let bookTitle = req.body;
-  // ${bookTitle.title}
   const getBook = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=testing&maxResults=12`
+    `https://www.googleapis.com/books/v1/volumes?q=${bookTitle.title}&maxResults=12`
   );
   let bookData = await getBook.json();
   res.send(bookData.items);

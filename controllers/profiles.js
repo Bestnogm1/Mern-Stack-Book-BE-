@@ -30,9 +30,10 @@ function deleteBook(req, res) {
     Books.findByIdAndDelete(booksId).then(() => {
       Profile.findByIdAndUpdate(profilesId).then((profile) => {
         profile.bookshelf.remove({ _id: book._id });
-        profile.save().then(() => res.send(200));
+        profile.save().then(() => res.sendStatus(200));
       });
     });
   });
 }
+
 export { index, show, deleteBook };
